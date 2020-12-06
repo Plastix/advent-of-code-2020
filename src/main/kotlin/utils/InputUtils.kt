@@ -17,6 +17,10 @@ fun CharSequence.splitNewlines(): List<String> {
     return trim().split(NEWLINE)
 }
 
+fun CharSequence.splitBlankLines(): List<String> {
+    return trim().split("\n\n")
+}
+
 fun CharSequence.splitWhitespace(): List<String> {
     return trim().split(WHITESPACE)
 }
