@@ -5,38 +5,36 @@ object Day7 {
 
     private const val SHINY_GOLD = "shiny gold"
 
-    private fun parseBagMap(input: String): MutableMap<String, List<Pair<String, Int>>> {
-        val bagKeyRegex = Regex("(.+) bags contain (.+)")
-        val innerBagRegex = Regex("(\\d)+ (\\D+) bags*[.,]")
+    private fun parseBagMap(input: String): Map<String, List<Pair<String, Int>>> {
+        val bagKeyRegex = "(.+) bags contain (.+)".toRegex()
+        val innerBagRegex = "(\\d)+ (\\D+) bags*[.,]".toRegex()
 
-        val bagMap: MutableMap<String, List<Pair<String, Int>>> = mutableMapOf()
-        input.splitNewlines().forEach { definition ->
-            val match = bagKeyRegex.matchEntire(definition)!!.groupValues
-            val key = match[1]
-            val innerBags = innerBagRegex.findAll(match[2]).map {
-                it.groupValues[2] to it.groupValues[1].toInt()
+        return input.splitNewlines().associate { line ->
+            val (key, items) = bagKeyRegex.matchEntire(line)!!.destructured
+            val innerBags = innerBagRegex.findAll(items).map { match ->
+                val (count, item) = match.destructured
+                item to count.toInt()
             }.toList()
-            bagMap[key] = innerBags
-        }
 
-        return bagMap
+            key to innerBags
+        }
     }
 
     fun part1(input: String): Int {
         return countShinyGoldBags(parseBagMap(input))
     }
 
-    private fun countShinyGoldBags(bagMap: MutableMap<String, List<Pair<String, Int>>>): Int {
+    private fun countShinyGoldBags(bagMap: Map<String, List<Pair<String, Int>>>): Int {
         var count = 0
         for (entry in bagMap) {
             val queue: Queue<Pair<String, Int>> = LinkedList(entry.value)
             while (queue.isNotEmpty()) {
-                val pair = queue.poll()
-                if (pair.first == SHINY_GOLD) {
+                val (key, _) = queue.poll()
+                if (key == SHINY_GOLD) {
                     count++
                     break
                 } else {
-                    queue.addAll(bagMap[pair.first] ?: emptyList())
+                    queue.addAll(bagMap[key] ?: emptyList())
                 }
             }
         }
@@ -48,16 +46,16 @@ object Day7 {
         return countInnerBags(parseBagMap(input))
     }
 
-    private fun countInnerBags(bagMap: MutableMap<String, List<Pair<String, Int>>>): Int {
+    private fun countInnerBags(bagMap: Map<String, List<Pair<String, Int>>>): Int {
         var count = 0
         val queue: Queue<Pair<String, Int>> = LinkedList(bagMap[SHINY_GOLD] ?: emptyList())
 
         while (queue.isNotEmpty()) {
-            val pair = queue.poll()
-            count += pair.second
+            val (key, innerCount) = queue.poll()
+            count += innerCount
 
-            repeat(pair.second) {
-                queue.addAll(bagMap[pair.first] ?: emptyList())
+            repeat(innerCount) {
+                queue.addAll(bagMap[key] ?: emptyList())
             }
         }
 
