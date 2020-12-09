@@ -43,7 +43,7 @@ object Day9 {
 
                 if(newValue == target) {
                     val range = numbers.subList(startIndex + 1, endIndex + 2)
-                    return range.minOrNull()?.plus(range.maxOrNull() ?: 0) ?: -1
+                    return range.minOrNull()!! + range.maxOrNull()!!
                 }
             }
         }
