@@ -10,7 +10,7 @@ class Day10Test {
             getResourceAsString("day10.txt")
         }
 
-        private val SAMPLE = """
+        private val SAMPLE_LONG = """
            28
            33
            18
@@ -44,7 +44,7 @@ class Day10Test {
            3
         """.trimIndent()
 
-        private val SAMPLE2 = """
+        private val SAMPLE_SHORT = """
             16
             10
             15
@@ -61,13 +61,13 @@ class Day10Test {
 
     @Test
     fun `part 1 samples`() {
-        assertEquals(220, Day10.part1(SAMPLE))
+        assertEquals(220, Day10.part1(SAMPLE_LONG))
     }
 
 
     @Test
     fun `part 1 samples2`() {
-        assertEquals(35, Day10.part1(SAMPLE2))
+        assertEquals(35, Day10.part1(SAMPLE_SHORT))
     }
 
     @Test
@@ -77,12 +77,12 @@ class Day10Test {
 
     @Test
     fun `part 2 samples`() {
-        assertEquals(8, Day10.part2(SAMPLE))
+        assertEquals(8, Day10.part2(SAMPLE_SHORT))
     }
 
     @Test
     fun `part 2 samples2`() {
-        assertEquals(19208, Day10.part2(SAMPLE2))
+        assertEquals(19208, Day10.part2(SAMPLE_LONG))
     }
 
     @Test
