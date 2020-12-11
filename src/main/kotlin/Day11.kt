@@ -61,11 +61,11 @@ object Day11 {
     }
 
     private fun countAdjacent(grid: List<List<Seat>>, i: Int, j: Int): Int {
-        return directions.map { dir ->
+        return directions.count { dir ->
             val x = i + dir.first
             val y = j + dir.second
-            x >= 0 && x < grid.size && y >= 0 && y < grid[x].size && grid[x][y] == Seat.Occupied
-        }.count { it }
+            x in grid.indices && y in grid[x].indices && grid[x][y] == Seat.Occupied
+        }
     }
 
     fun part2(input: String): Int {
@@ -82,13 +82,13 @@ object Day11 {
     }
 
     private fun countVisible(grid: List<List<Seat>>, i: Int, j: Int): Int {
-        return directions.map { dir ->
+        return directions.count { dir ->
             var x = i + dir.first
             var y = j + dir.second
-            while (x >= 0 && x < grid.size && y >= 0 && y < grid[x].size) {
+            while (x in grid.indices && y in grid[x].indices) {
                 when (grid[x][y]) {
-                    Seat.Occupied -> return@map true
-                    Seat.Empty -> return@map false
+                    Seat.Occupied -> return@count true
+                    Seat.Empty -> return@count false
                     Seat.Floor -> {
                         x += dir.first
                         y += dir.second
@@ -96,7 +96,7 @@ object Day11 {
                 }
             }
             false
-        }.count { it }
+        }
     }
 
 }
