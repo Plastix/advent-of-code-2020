@@ -12,7 +12,20 @@ object Day13 {
         return earliestBus * (earliestBus - offset)
     }
 
-    fun part2(input: String, min: Long = 0): Long {
-        TODO()
+    fun part2(input: String, min: Long = 1): Long {
+        val busses = input.splitNewlines().drop(1).first().split(",").mapIndexedNotNull { index, s ->
+            val busId = s.toLongOrNull() ?: return@mapIndexedNotNull null
+            busId to index
+        }
+
+        var timestep = min
+        var step = 1L
+        for ((busId, offset) in busses) {
+            while ((timestep + offset) % busId != 0L) {
+                timestep += step
+            }
+            step *= busId
+        }
+        return timestep
     }
 }

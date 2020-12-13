@@ -34,6 +34,6 @@ class Day13Test {
 
     @Test
     fun `part 2`() {
-        assertEquals(0, Day13.part2(INPUT, 100000000000001L))
+        assertEquals(554865447501099, Day13.part2(INPUT, 100000000000001L))
     }
 }
