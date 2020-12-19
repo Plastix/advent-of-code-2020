@@ -36,11 +36,11 @@ class Day17Test {
 
     @Test
     fun `part 2 samples`() {
-        assertEquals(0, Day17.part2(SAMPLE))
+        assertEquals(848, Day17.part2(SAMPLE))
     }
 
     @Test
     fun `part 2`() {
-        assertEquals(0, Day17.part2(INPUT))
+        assertEquals(1392, Day17.part2(INPUT))
     }
 }
