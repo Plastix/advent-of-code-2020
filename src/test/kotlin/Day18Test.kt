@@ -27,13 +27,13 @@ class Day18Test {
         assertEquals(5019432542701, Day18.part1(INPUT))
     }
 
-//    @Test
-//    fun `part 2 samples`() {
-//        assertEquals(848, Day18.part2(SAMPLE))
-//    }
+    @Test
+    fun `part 2 samples`() {
+        assertEquals(231, Day18.part2("1 + 2 * 3 + 4 * 5 + 6"))
+    }
 
-//    @Test
-//    fun `part 2`() {
-//        assertEquals(1392, Day18.part2(INPUT))
-//    }
+    @Test
+    fun `part 2`() {
+        assertEquals(0, Day18.part2(INPUT))
+    }
 }
